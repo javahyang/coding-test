@@ -1,7 +1,7 @@
 function solution(board, moves) {
   let stack = [];
   let answer = 0;
-  for (let move of moves) {
+  moves.forEach((move) => {
     for (let i = 0; i < board.length; i++) {
       if (board[i][move - 1] !== 0) {
         if (
@@ -18,7 +18,7 @@ function solution(board, moves) {
         break;
       }
     }
-  }
+  });
 
   return answer;
 }
