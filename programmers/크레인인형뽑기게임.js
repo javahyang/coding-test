@@ -1,31 +1,24 @@
 function solution(board, moves) {
-  const size = board.length;
-  const new_board_acc = Array.from(Array(size), () => Array());
-  // board 재정렬
-  const new_board = board.reduce((acc, curr, i) => {
-    curr.map((item, idx) => {
-      if (item > 0) {
-        // acc[idx][i] = item;
-        acc[idx] = [...acc[idx], item];
-      }
-    });
-    return acc;
-  }, new_board_acc);
-  console.log(new_board);
-  // moves 대로 바구니에 담기
+  let stack = [];
   let answer = 0;
-  const basket = moves.reduce((acc, curr) => {
-    const idx = curr - 1;
-    if (new_board[idx].length > 0) {
-      const pickup_item = new_board[idx].shift();
-      if (acc[acc.length - 1] === pickup_item) {
-        acc.pop();
-        answer += 2;
-      } else acc.push(pickup_item);
+  for (let move of moves) {
+    for (let i = 0; i < board.length; i++) {
+      if (board[i][move - 1] !== 0) {
+        if (
+          stack.length > 0 &&
+          stack[stack.length - 1] === board[i][move - 1]
+        ) {
+          answer += 2;
+          stack.pop();
+        } else {
+          stack.push(board[i][move - 1]);
+        }
+
+        board[i][move - 1] = 0;
+        break;
+      }
     }
-    return acc;
-  }, []);
-  console.log(basket);
+  }
 
   return answer;
 }
