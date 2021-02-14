@@ -1,12 +1,9 @@
 function solution(n) {
-  let answer = 1;
-  function DFS(L) {
-    if (L === 0) return;
-    answer *= L;
-    DFS(L - 1);
+  function DFS(k) {
+    if (k === 1) return 1;
+    else return k * DFS(k - 1);
   }
-  DFS(n);
-  return answer;
+  return DFS(n);
 }
 
 console.log(solution(5));
