@@ -1,12 +1,12 @@
 function solution(n, lost, reserve) {
   const ownClothes = n - lost.length;
-  let ownSpare = reserve.filter((item) => lost.indexOf(item) > -1).length;
+  let ownSpare = reserve.filter((item) => lost.includes(item)).length;
   console.log("자기가 챙겨온 여벌:", ownSpare);
   if (ownSpare === lost.length) return n;
 
-  let noSpare = lost.filter((item) => reserve.indexOf(item) < 0);
+  let noSpare = lost.filter((item) => !reserve.includes(item));
   console.log("빌려입어야 하는 사람:", noSpare);
-  let otherSpare = reserve.filter((item) => lost.indexOf(item) < 0);
+  let otherSpare = reserve.filter((item) => !lost.includes(item));
   console.log("이용할수 있는 여벌:", otherSpare);
   let result = otherSpare.reduce((acc, curr) => {
     if (noSpare.indexOf(curr) > -1) {
